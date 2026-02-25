@@ -1,78 +1,31 @@
 public class PalindromeCheckerApp {
 
-    // Node class for singly linked list
-    static class Node {
-        char data;
-        Node next;
-
-        Node(char data) {
-            this.data = data;
-            this.next = null;
-        }
-    }
-
-    // Function to check if linked list is palindrome
-    public static boolean isPalindrome(Node head) {
-        if (head == null || head.next == null) {
+    // Recursive function to check palindrome
+    public static boolean isPalindrome(String word, int start, int end) {
+        // Base condition: if start >= end, it's a palindrome
+        if (start >= end) {
             return true;
         }
 
-        // Step 1: Use fast and slow pointers to find middle
-        Node slow = head;
-        Node fast = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+        // If mismatch found, return false
+        if (word.charAt(start) != word.charAt(end)) {
+            return false;
         }
 
-        // Step 2: Reverse second half of the list
-        Node prev = null;
-        Node current = slow;
-        while (current != null) {
-            Node nextNode = current.next;
-            current.next = prev;
-            prev = current;
-            current = nextNode;
-        }
-
-        // Step 3: Compare first half and reversed second half
-        Node firstHalf = head;
-        Node secondHalf = prev;
-        while (secondHalf != null) {
-            if (firstHalf.data != secondHalf.data) {
-                return false;
-            }
-            firstHalf = firstHalf.next;
-            secondHalf = secondHalf.next;
-        }
-
-        return true;
+        // Recursive call: move inward
+        return isPalindrome(word, start + 1, end - 1);
     }
 
     public static void main(String[] args) {
-        String word = "radar";
-
-        // Convert string to linked list
-        Node head = null;
-        Node tail = null;
-        for (int i = 0; i < word.length(); i++) {
-            Node newNode = new Node(word.charAt(i));
-            if (head == null) {
-                head = newNode;
-                tail = newNode;
-            } else {
-                tail.next = newNode;
-                tail = newNode;
-            }
-        }
+        String word = "madam";
 
         System.out.println("=======================================");
-        System.out.println("   Palindrome Checker App - UC8");
+        System.out.println("   Palindrome Checker App - UC9");
         System.out.println("   Version: 1.0");
         System.out.println("=======================================");
         System.out.println("Checking word: " + word);
 
-        if (isPalindrome(head)) {
+        if (isPalindrome(word, 0, word.length() - 1)) {
             System.out.println("Result: \"" + word + "\" is a palindrome.");
         } else {
             System.out.println("Result: \"" + word + "\" is not a palindrome.");
