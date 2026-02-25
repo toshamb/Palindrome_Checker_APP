@@ -1,6 +1,16 @@
+import java.util.Scanner;
+
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        String word = "radar";
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=======================================");
+        System.out.println("   Palindrome Checker App - UC5");
+        System.out.println("   Version: 1.0");
+        System.out.println("=======================================");
+        System.out.print("Enter a word to check: ");
+        String word = scanner.nextLine();
+
         char[] chars = word.toCharArray();
         boolean isPalindrome = true;
 
@@ -16,12 +26,6 @@ public class PalindromeCheckerApp {
             end--;
         }
 
-        System.out.println("=======================================");
-        System.out.println("   Palindrome Checker App - UC4");
-        System.out.println("   Version: 1.0");
-        System.out.println("=======================================");
-        System.out.println("Checking word: " + word);
-
         if (isPalindrome) {
             System.out.println("Result: \"" + word + "\" is a palindrome.");
         } else {
@@ -29,5 +33,6 @@ public class PalindromeCheckerApp {
         }
 
         System.out.println("Program exiting...");
+        scanner.close();
     }
 }
