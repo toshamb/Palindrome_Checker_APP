@@ -1,14 +1,31 @@
-class PalindromeChecker {
-    public boolean checkPalindrome(String word) {
-        int start = 0;
-        int end = word.length() - 1;
+interface PalindromeStrategy {
+    boolean checkPalindrome(String word);
+}
 
-        while (start < end) {
-            if (word.charAt(start) != word.charAt(end)) {
+class StackStrategy implements PalindromeStrategy {
+    public boolean checkPalindrome(String word) {
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+        for (char c : word.toCharArray()) {
+            stack.push(c);
+        }
+        String reversed = "";
+        while (!stack.isEmpty()) {
+            reversed += stack.pop();
+        }
+        return word.equals(reversed);
+    }
+}
+
+class DequeStrategy implements PalindromeStrategy {
+    public boolean checkPalindrome(String word) {
+        java.util.Deque<Character> deque = new java.util.LinkedList<>();
+        for (char c : word.toCharArray()) {
+            deque.addLast(c);
+        }
+        while (deque.size() > 1) {
+            if (deque.removeFirst() != deque.removeLast()) {
                 return false;
             }
-            start++;
-            end--;
         }
         return true;
     }
@@ -16,20 +33,21 @@ class PalindromeChecker {
 
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        String word = "level";
-        PalindromeChecker checker = new PalindromeChecker();
+        String word = "racecar";
 
+        PalindromeStrategy strategy;
+
+        strategy = new StackStrategy();
         System.out.println("=======================================");
-        System.out.println("   Palindrome Checker App - UC11");
+        System.out.println("   Palindrome Checker App - UC12");
         System.out.println("   Version: 1.0");
         System.out.println("=======================================");
-        System.out.println("Checking word: " + word);
+        System.out.println("Checking word with StackStrategy: " + word);
+        System.out.println(strategy.checkPalindrome(word) ? "Palindrome" : "Not Palindrome");
 
-        if (checker.checkPalindrome(word)) {
-            System.out.println("Result: \"" + word + "\" is a palindrome.");
-        } else {
-            System.out.println("Result: \"" + word + "\" is not a palindrome.");
-        }
+        strategy = new DequeStrategy();
+        System.out.println("Checking word with DequeStrategy: " + word);
+        System.out.println(strategy.checkPalindrome(word) ? "Palindrome" : "Not Palindrome");
 
         System.out.println("Program exiting...");
     }
