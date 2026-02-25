@@ -1,32 +1,36 @@
 public class PalindromeCheckerApp {
 
-    // Recursive function to check palindrome
-    public static boolean isPalindrome(String word, int start, int end) {
-        // Base condition: if start >= end, it's a palindrome
-        if (start >= end) {
-            return true;
-        }
+    public static String normalize(String input) {
+        return input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+    }
 
-        // If mismatch found, return false
-        if (word.charAt(start) != word.charAt(end)) {
-            return false;
-        }
+    public static boolean isPalindrome(String word) {
+        int start = 0;
+        int end = word.length() - 1;
 
-        // Recursive call: move inward
-        return isPalindrome(word, start + 1, end - 1);
+        while (start < end) {
+            if (word.charAt(start) != word.charAt(end)) {
+                return false;
+            }
+            start++;
+            end--;
+        }
+        return true;
     }
 
     public static void main(String[] args) {
-        String word = "madam";
+        String word = "A man a plan a canal Panama";
 
         System.out.println("=======================================");
-        System.out.println("   Palindrome Checker App - UC9");
+        System.out.println("   Palindrome Checker App - UC10");
         System.out.println("   Version: 1.0");
         System.out.println("=======================================");
         System.out.println("Checking word: " + word);
 
-        if (isPalindrome(word, 0, word.length() - 1)) {
-            System.out.println("Result: \"" + word + "\" is a palindrome.");
+        String normalized = normalize(word);
+
+        if (isPalindrome(normalized)) {
+            System.out.println("Result: \"" + word + "\" is a palindrome (ignoring case and spaces).");
         } else {
             System.out.println("Result: \"" + word + "\" is not a palindrome.");
         }
