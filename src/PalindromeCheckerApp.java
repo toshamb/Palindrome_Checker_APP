@@ -1,10 +1,5 @@
-public class PalindromeCheckerApp {
-
-    public static String normalize(String input) {
-        return input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-    }
-
-    public static boolean isPalindrome(String word) {
+class PalindromeChecker {
+    public boolean checkPalindrome(String word) {
         int start = 0;
         int end = word.length() - 1;
 
@@ -17,20 +12,21 @@ public class PalindromeCheckerApp {
         }
         return true;
     }
+}
 
+public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        String word = "A man a plan a canal Panama";
+        String word = "level";
+        PalindromeChecker checker = new PalindromeChecker();
 
         System.out.println("=======================================");
-        System.out.println("   Palindrome Checker App - UC10");
+        System.out.println("   Palindrome Checker App - UC11");
         System.out.println("   Version: 1.0");
         System.out.println("=======================================");
         System.out.println("Checking word: " + word);
 
-        String normalized = normalize(word);
-
-        if (isPalindrome(normalized)) {
-            System.out.println("Result: \"" + word + "\" is a palindrome (ignoring case and spaces).");
+        if (checker.checkPalindrome(word)) {
+            System.out.println("Result: \"" + word + "\" is a palindrome.");
         } else {
             System.out.println("Result: \"" + word + "\" is not a palindrome.");
         }
